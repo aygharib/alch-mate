@@ -5,12 +5,13 @@ import data from "./components/MOCK_DATA_ARRAY.json"
 const App = () => {
   const [mappingItems, setMappingItems] = useState([]);
   const [fiveMinItems, setFiveMinItems] = useState([]);
+  const [mergedItems, setMergedItems] = useState([]);
 
   const convertToArray = (nestedObject) => {
     const object = nestedObject;
     // Convert ID from key to attribute of object
     for (let key in object) {
-      object[key]["id"] = key;
+      object[key]["id"] = parseInt(key);
     }
     let convertedArray = Object.values(object);
     console.log("convertedArray", convertedArray);
@@ -27,6 +28,8 @@ const App = () => {
         const json = await response.json();
         console.log("Mapping Json:", json);
         setter(json);
+        
+        return response;
       } catch (error) {
         console.log("error", error);
       }
@@ -38,16 +41,25 @@ const App = () => {
         const json = await response.json();
         console.log("Five Min Json:", json);
         setter(convertToArray(json.data));
+
+        return response;
       } catch (error) {
         console.log("error", error);
       }
     }
 
-    fetchData(mappingUrl, setMappingItems);
-    fetchData2(fiveMinUrl, setFiveMinItems);
+    let prom1 = fetchData(mappingUrl, setMappingItems);
+    let prom2 = fetchData2(fiveMinUrl, setFiveMinItems);
+    
+    Promise.all([prom1, prom2]).then(() => {
+      console.log("Test mapping:", mappingItems);
+      console.log("Test fivemin:", fiveMinItems);
+      const a3 = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
+      console.log("merged results:", a3);
+      setMergedItems(a3);
+    });
 
-    console.log("Test mapping:", mappingItems);
-    console.log("Test fivemin:", fiveMinItems);
+    // console.log("Merged items...:", mergedItems);
   }, []);
 
   const updateData = () => {
@@ -130,7 +142,18 @@ const App = () => {
             <th>limit</th> */}
 
             {/* Five Min */}
+            {/* <th>id</th>
+            <th>avgHighPrice</th>
+            <th>highPriceVolume</th>
+            <th>avgLowPrice</th>
+            <th>lowPriceVolume</th> */}
+
+            {/* Merged Items */}
             <th>id</th>
+            <th>name</th>
+            <th>high alch</th>
+            <th>members</th>
+            <th>limit</th>
             <th>avgHighPrice</th>
             <th>highPriceVolume</th>
             <th>avgLowPrice</th>
@@ -147,9 +170,22 @@ const App = () => {
               <td>{item.limit}</td>
             </tr>
           ))} */}
-          {fiveMinItems.map((item) => (
+          {/* {fiveMinItems.map((item) => (
             <tr>
               <td>{item.id}</td>
+              <td>{item.avgHighPrice}</td>
+              <td>{item.highPriceVolume}</td>
+              <td>{item.avgLowPrice}</td>
+              <td>{item.lowPriceVolume}</td>
+            </tr>
+          ))} */}
+          {mergedItems.map((item) => (
+            <tr>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.highalch}</td>
+              <td>{item.members}</td>
+              <td>{item.limit}</td>
               <td>{item.avgHighPrice}</td>
               <td>{item.highPriceVolume}</td>
               <td>{item.avgLowPrice}</td>
@@ -158,7 +194,6 @@ const App = () => {
           ))}
         </tbody>
       </table>
-    
     </div>
   );
 }
