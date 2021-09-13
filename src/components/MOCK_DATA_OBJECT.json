@@ -1,0 +1,26 @@
+{
+    "2": {
+      "avgHighPrice": 193,
+      "highPriceVolume": 41445,
+      "avgLowPrice": 187,
+      "lowPriceVolume": 21731
+    },
+    "6": {
+      "avgHighPrice": null,
+      "highPriceVolume": 0,
+      "avgLowPrice": 178633,
+      "lowPriceVolume": 2
+    },
+    "8": {
+      "avgHighPrice": null,
+      "highPriceVolume": 0,
+      "avgLowPrice": 182786,
+      "lowPriceVolume": 2
+    },
+    "10": {
+      "avgHighPrice": null,
+      "highPriceVolume": 0,
+      "avgLowPrice": 182788,
+      "lowPriceVolume": 2
+    }
+}
