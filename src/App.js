@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     const fiveMinUrl = "https://prices.runescape.wiki/api/v1/osrs/5m";
-    
+
     const fetchData2 = async (url, setter) => {
       try {
         console.log("cool!");
@@ -54,9 +54,9 @@ const App = () => {
   }, [mappingItems]);
 
   useEffect(() => {
-    const a3 = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
-    setMergedItems(a3);
-  }, [fiveMinItems]);
+    const tempMergedItems = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
+    setMergedItems(tempMergedItems);
+  }, [mappingItems, fiveMinItems]);
 
   const updateData = () => {
     console.log("Update!");
@@ -180,7 +180,7 @@ const App = () => {
               <td>{item.id}</td>
               <td>{item.name}</td>
               <td>{item.highalch}</td>
-              <td>{item.members}</td>
+              <td>{item.members ? <p>T</p> : <p>F</p>}</td>
               <td>{item.limit}</td>
               <td>{item.avgHighPrice}</td>
               <td>{item.highPriceVolume}</td>
