@@ -22,6 +22,19 @@ const App = () => {
     const mappingUrl = "https://prices.runescape.wiki/api/v1/osrs/mapping";
     const fiveMinUrl = "https://prices.runescape.wiki/api/v1/osrs/5m";
 
+    const fetchBigData = async() => {
+      let prom1 = fetchData(mappingUrl, setMappingItems);
+      let prom2 = fetchData2(fiveMinUrl, setFiveMinItems);
+      
+      Promise.all([prom1, prom2]).then(() => {
+        console.log("Test mapping:", mappingItems);
+        console.log("Test fivemin:", fiveMinItems);
+        const a3 = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
+        console.log("merged results:", a3);
+        setMergedItems(a3);
+      });
+    }
+
     const fetchData = async (url, setter) => {
       try {
         const response = await fetch(url);
@@ -34,7 +47,7 @@ const App = () => {
         console.log("error", error);
       }
     }
-
+ 
     const fetchData2 = async (url, setter) => {
       try {
         const response = await fetch(url);
@@ -48,16 +61,7 @@ const App = () => {
       }
     }
 
-    let prom1 = fetchData(mappingUrl, setMappingItems);
-    let prom2 = fetchData2(fiveMinUrl, setFiveMinItems);
-    
-    Promise.all([prom1, prom2]).then(() => {
-      console.log("Test mapping:", mappingItems);
-      console.log("Test fivemin:", fiveMinItems);
-      const a3 = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
-      console.log("merged results:", a3);
-      setMergedItems(a3);
-    });
+    fetchBigData();
 
     // console.log("Merged items...:", mergedItems);
   }, []);
