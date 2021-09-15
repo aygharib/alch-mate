@@ -1,9 +1,37 @@
 import React, { useState, useEffect } from "react";
 
 const ItemTable = () => {
+    // Data
     const [mappingItems, setMappingItems] = useState([]);
     const [fiveMinItems, setFiveMinItems] = useState([]);
     const [mergedItems, setMergedItems] = useState([]);
+
+    const [displayedItems, setDisplayedItems] = useState([]);
+
+
+    // Pagination
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 5;
+    const pagesVisted = pageNumber * itemsPerPage;
+
+    // const displayItems = mergedItems.slice(pagesVisted, pagesVisted + itemsPerPage).map((item) => {
+    //     return (
+    //         <div>
+    //             <tr>
+    //                 <td>{item.id}</td>
+    //                 <td>{item.name}</td>
+    //                 <td>{item.highalch}</td>
+    //                 <td>{item.members ? <p>T</p> : <p>F</p>}</td>
+    //                 <td>{item.limit}</td>
+    //                 <td>{item.avgHighPrice}</td>
+    //                 <td>{item.highPriceVolume}</td>
+    //                 <td>{item.avgLowPrice}</td>
+    //                 <td>{item.lowPriceVolume}</td>
+    //                 <td>{item.profit}</td>
+    //             </tr>
+    //         </div>
+    //     );
+    // });
 
     // Takes in a nested object, returns an array of objects
     // Necessary because five min items API returns nested object
@@ -80,40 +108,46 @@ const ItemTable = () => {
         merge();
     }, [mappingItems, fiveMinItems]);
 
+    useEffect(() => {
+        setDisplayedItems(mergedItems.slice(pagesVisted, pagesVisted + itemsPerPage));
+    }, [mergedItems]);
+
     return (
-        <table>
-            <thead>
-            <tr>
-                {/* Merged Items */}
-                <th>id</th>
-                <th>name</th>
-                <th>high alch</th>
-                <th>members</th>
-                <th>limit</th>
-                <th>avgHighPrice</th>
-                <th>highPriceVolume</th>
-                <th>avgLowPrice</th>
-                <th>lowPriceVolume</th>
-                <th>profit</th>
-            </tr>
-            </thead>
-            <tbody>
-            {mergedItems.map((item) => (
-                <tr>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.highalch}</td>
-                    <td>{item.members ? <p>T</p> : <p>F</p>}</td>
-                    <td>{item.limit}</td>
-                    <td>{item.avgHighPrice}</td>
-                    <td>{item.highPriceVolume}</td>
-                    <td>{item.avgLowPrice}</td>
-                    <td>{item.lowPriceVolume}</td>
-                    <td>{item.profit}</td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>high alch</th>
+                        <th>members</th>
+                        <th>limit</th>
+                        <th>avgHighPrice</th>
+                        <th>highPriceVolume</th>
+                        <th>avgLowPrice</th>
+                        <th>lowPriceVolume</th>
+                        <th>profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {displayedItems.map((item) => (
+                        <tr>
+                            {console.log(item.id)}
+                            <td>{item.id}</td>
+                            <td>{item.name}</td>
+                            <td>{item.highalch}</td>
+                            <td>{item.members ? <p>T</p> : <p>F</p>}</td>
+                            <td>{item.limit}</td>
+                            <td>{item.avgHighPrice}</td>
+                            <td>{item.highPriceVolume}</td>
+                            <td>{item.avgLowPrice}</td>
+                            <td>{item.lowPriceVolume}</td>
+                            <td>{item.profit}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
 
