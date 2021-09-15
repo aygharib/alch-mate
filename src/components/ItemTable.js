@@ -123,6 +123,9 @@ const ItemTable = () => {
                     ))}
                 </tbody>
             </table>
+            <button>
+                Next page
+            </button>
         </div>
     );
 }
