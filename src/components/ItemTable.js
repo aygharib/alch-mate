@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 
 const ItemTable = () => {
     // Data
@@ -11,6 +12,7 @@ const ItemTable = () => {
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 5;
     const pagesVisted = pageNumber * itemsPerPage;
+    const pageCount = Math.ceil(mergedItems.length / itemsPerPage);
 
     // Takes in a nested object, returns an array of objects
     // Necessary because five min items API returns nested object
@@ -87,9 +89,14 @@ const ItemTable = () => {
         merge();
     }, [mappingItems, fiveMinItems]);
 
+    // Update displayed items when mergedItems changes, or when the pageNumber changes
     useEffect(() => {
         setDisplayedItems(mergedItems.slice(pagesVisted, pagesVisted + itemsPerPage));
-    }, [mergedItems]);
+    }, [mergedItems, pageNumber]);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
 
     return (
         <div>
@@ -123,9 +130,13 @@ const ItemTable = () => {
                     ))}
                 </tbody>
             </table>
-            <button>
-                Next page
-            </button>
+            
+            <ReactPaginate 
+                previousLabel={"Previous"}
+                nextLabel={"Next"}
+                pageCount={pageCount}
+                onPageChange={changePage}
+            />
         </div>
     );
 }
