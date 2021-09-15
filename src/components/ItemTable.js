@@ -13,7 +13,6 @@ const ItemTable = () => {
             object[key]["id"] = parseInt(key);
         }
         let convertedArray = Object.values(object);
-        console.log("Converted Array:", convertedArray);
         return convertedArray;
     }
 
@@ -53,32 +52,16 @@ const ItemTable = () => {
 
     // On loading mapping or five min data, merge data
     useEffect(() => {
-        const compare = (a, b) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-            return 0;
-        }
-
         const compareProfit = (a, b) => {
-            if (a.profit < b.profit) {
-                return 1;
-            }
-            if (a.profit > b.profit) {
-                return -1;
-            }
-            return 0;
+            return b.profit - a.profit;
         }
 
-        const sortThis = (objectArray) => {
-            return objectArray.sort(compareProfit);
-        }
-
+        // Creates a profit attribute for all objects
+        // Necessary as API does not include high alch profit data
         const createProfitAttribute = (objectArray) => {
             objectArray.forEach((element) => {
+                // Some items do not have a valid avgHighPrice
+                // These items are not considered for profit
                 if (element.avgHighPrice !== null) {
                     element.profit = element.highalch - element.avgHighPrice;
                 } else {
@@ -88,14 +71,10 @@ const ItemTable = () => {
         }
 
         const merge = () => {
+            // Merge mappingItems and fiveMinItems into one array of objects
             const tempMergedItems = fiveMinItems.map(t1 => ({...t1, ...mappingItems.find(t2 => t2.id === t1.id)}));
-
             createProfitAttribute(tempMergedItems);
-
-            let sortedArray = sortThis(tempMergedItems);
-            console.log(sortedArray);
-
-            setMergedItems(sortedArray);
+            setMergedItems(tempMergedItems.sort(compareProfit));
         }
 
         merge();
