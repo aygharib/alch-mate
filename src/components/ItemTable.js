@@ -96,7 +96,6 @@ const ItemTable = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>id</th>
                         <th>name</th>
                         <th>high alch</th>
                         <th>members</th>
@@ -111,8 +110,6 @@ const ItemTable = () => {
                 <tbody>
                     {displayedItems.map((item) => (
                         <tr>
-                            {console.log(item.id)}
-                            <td>{item.id}</td>
                             <td>{item.name}</td>
                             <td>{item.highalch}</td>
                             <td>{item.members ? <p>T</p> : <p>F</p>}</td>
