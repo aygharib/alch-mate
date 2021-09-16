@@ -28,10 +28,9 @@ h2 {
     text-align: center;
 }
 
-.paginationButtons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    color: black;
+.pagination {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    width: 100% !important;
 }

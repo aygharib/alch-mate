@@ -11,7 +11,7 @@ const ItemTable = () => {
 
     // Pagination
     const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 5;
+    const itemsPerPage = 20;
     const pagesVisted = pageNumber * itemsPerPage;
     const pageCount = Math.ceil(mergedItems.length / itemsPerPage);
 
@@ -131,6 +131,36 @@ const ItemTable = () => {
                     ))}
                 </tbody>
                 </table>
+                {/* 
+                <ReactPaginate 
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"paginationButtons"}
+                    previousLinkClassName={"previousButton"}
+                    nextLinkClassName={"nextButton"}
+                    activeClassName={"activeButton"}
+                /> */}
+
+                <div class="poggers">
+                    <ReactPaginate
+                        previousLabel={"Prev"}
+                        nextLabel={"Next"}
+                        containerClassName="pagination"
+                        breakClassName="page-item"
+                        breakLabel={<a className="page-link">...</a>}
+                        pageClassName="page-item"
+                        previousClassName="page-item"
+                        nextClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousLinkClassName="page-link"
+                        nextLinkClassName="page-link"
+                        activeClassName="active"
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                    />
+                </div>
                 
                 
                 {/* <table>
