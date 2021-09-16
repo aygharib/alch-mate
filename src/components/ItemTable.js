@@ -102,7 +102,38 @@ const ItemTable = () => {
     return (
         <div className="container">
             <div className="table-style">
-                <table>
+
+                <h2>Profitable Items</h2>
+
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">High Price</th>
+                    <th scope="col">High Volume</th>
+                    <th scope="col">High Alchemy Value</th>
+                    <th scope="col">Members Only</th>
+                    <th scope="col">Limit</th>
+                    <th scope="col">Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {displayedItems.map((item) => (
+                        <tr class="table-active">
+                            <th scope="row">{item.name}</th>
+                            <td>{item.avgHighPrice}</td>
+                            <td>{item.highPriceVolume}</td>
+                            <td>{item.highalch}</td>
+                            <td>{item.members ? <p>Yes</p> : <p>No</p>}</td>
+                            <td>{item.limit}</td>
+                            <td>{item.profit}</td>
+                        </tr>
+                    ))}
+                </tbody>
+                </table>
+                
+                
+                {/* <table>
                     <thead className="table-header">
                         <tr>
                             <th>Name</th>
@@ -142,7 +173,7 @@ const ItemTable = () => {
                     previousLinkClassName={"previousButton"}
                     nextLinkClassName={"nextButton"}
                     activeClassName={"activeButton"}
-                />
+                /> */}
             </div>
         </div>
     );

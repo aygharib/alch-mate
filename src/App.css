@@ -2,6 +2,6 @@
   display: flex;
   flex-direction: column;
   color: white;
-  background-color: #201c1c;
+  /* background-color: #201c1c; */
   min-height: 100vh;
 }
