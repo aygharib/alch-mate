@@ -2,7 +2,7 @@ import "./Navbar.css"
 
 const Navbar = () => {
     return(
-        <div>
+        <div className="navbar-style">
             <h1>Alch-Mate</h1>
         </div>
     );
