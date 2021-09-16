@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
+import "./ItemTable.css";
 
 const ItemTable = () => {
     // Data
@@ -11,6 +13,7 @@ const ItemTable = () => {
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 5;
     const pagesVisted = pageNumber * itemsPerPage;
+    const pageCount = Math.ceil(mergedItems.length / itemsPerPage);
 
     // Takes in a nested object, returns an array of objects
     // Necessary because five min items API returns nested object
@@ -87,45 +90,60 @@ const ItemTable = () => {
         merge();
     }, [mappingItems, fiveMinItems]);
 
+    // Update displayed items when mergedItems changes, or when the pageNumber changes
     useEffect(() => {
         setDisplayedItems(mergedItems.slice(pagesVisted, pagesVisted + itemsPerPage));
-    }, [mergedItems]);
+    }, [mergedItems, pageNumber]);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>high alch</th>
-                        <th>members</th>
-                        <th>limit</th>
-                        <th>avgHighPrice</th>
-                        <th>highPriceVolume</th>
-                        <th>avgLowPrice</th>
-                        <th>lowPriceVolume</th>
-                        <th>profit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {displayedItems.map((item) => (
+        <div className="container">
+            <div className="table-style">
+                <table>
+                    <thead className="table-header">
                         <tr>
-                            <td>{item.name}</td>
-                            <td>{item.highalch}</td>
-                            <td>{item.members ? <p>T</p> : <p>F</p>}</td>
-                            <td>{item.limit}</td>
-                            <td>{item.avgHighPrice}</td>
-                            <td>{item.highPriceVolume}</td>
-                            <td>{item.avgLowPrice}</td>
-                            <td>{item.lowPriceVolume}</td>
-                            <td>{item.profit}</td>
+                            <th>Name</th>
+                            <th>High Alchemy</th>
+                            <th>Members</th>
+                            <th>Limit</th>
+                            <th>High Price</th>
+                            <th>High Volume</th>
+                            <th>Low Price</th>
+                            <th>Low Volume</th>
+                            <th>Profit</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <button>
-                Next page
-            </button>
+                    </thead>
+                    <tbody className="table-body">
+                        {displayedItems.map((item) => (
+                            <tr>
+                                <td>{item.name}</td>
+                                <td>{item.highalch}</td>
+                                <td>{item.members ? <p>T</p> : <p>F</p>}</td>
+                                <td>{item.limit}</td>
+                                <td>{item.avgHighPrice}</td>
+                                <td>{item.highPriceVolume}</td>
+                                <td>{item.avgLowPrice}</td>
+                                <td>{item.lowPriceVolume}</td>
+                                <td>{item.profit}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
+                <ReactPaginate 
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"paginationButtons"}
+                    previousLinkClassName={"previousButton"}
+                    nextLinkClassName={"nextButton"}
+                    activeClassName={"activeButton"}
+                />
+            </div>
         </div>
     );
 }
