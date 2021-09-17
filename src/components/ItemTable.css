@@ -1,27 +1,38 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@300;600;800;900&display=swap');
 .container {
 	max-width: 95vw;
+    padding: 20px;
 }
 
 .table-style {
-    font-family: "Source Sans Pro", sans-serif;
+    font-family: 'Overpass', sans-serif;
 }
 
 td, thead {
     text-align: center;
-    justify-content: center;
+}
+
+td {
+    height: 15px !important;
+    padding: 5px !important;
+
+    display: table-cell;
+    vertical-align: middle;
 }
 
 tr {
     justify-content: center;
     max-height: 25px;
+    background-color: #201c1cf3;
 }
 
 th {
-    text-align: center;
-    justify-content: center;
-    width: auto !important;
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 300;
 }
 
 h2 {
@@ -33,4 +44,24 @@ h2 {
     flex-direction: row !important;
     justify-content: center !important;
     width: 100% !important;
+}
+
+.title-style {
+    padding: 20px;
+    color: rgb(206, 206, 206);
+    font-family: 'Overpass', sans-serif;
+    font-weight: 800;
+}
+
+.pagination-style {
+    background-color: #201c1c;
+    height: 50px;
+}
+
+.page-link {
+    background-color: #201c1c !important;
+}
+
+.card {
+    background-color: #201c1c !important;
 }
