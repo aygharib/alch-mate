@@ -1,66 +1,67 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
-:root {
-    --base-spacing-unit: 24px;
-    --half-spacing-unit: base-spacing-unit / 2;
-    --color-alpha: #1772FF;
-    --color-form-highlight: #EEEEEE;
-}
-
-*, *:before, *:after {
-	box-sizing:border-box;
-}
-
-h1,h2,h3,h4,h5,h6 {
-	margin:0;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@300;600;800;900&display=swap');
 .container {
 	max-width: 95vw;
-	margin-right: auto;
-	margin-left: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    padding: 20px;
 }
 
 .table-style {
-    font-family: "Source Sans Pro", sans-serif;
-    margin: 0;
-	width: 100%;
-    border-collapse: collapse;
-    
-    table-layout: fixed;
+    font-family: 'Overpass', sans-serif;
 }
 
-.table-header {
-	background: black;
-    color: white;
-    
-    padding: 0px;
-    font-size: 30px;
-}
-
-.table-body {
-    background: white;
-    color: black;
-}
-
-td, th {
-    border: none;
+td, thead {
     text-align: center;
 }
 
 td {
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    word-wrap: break-word;
+    height: 15px !important;
+    padding: 5px !important;
+
+    display: table-cell;
+    vertical-align: middle;
 }
 
-.paginationButtons {
-    display: flex;
-    align-items: center;
+tr {
     justify-content: center;
-    background-color: white;
-    color: black;
+    max-height: 25px;
+    background-color: #201c1cf3;
+}
+
+th {
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+h2 {
+    text-align: center;
+}
+
+.pagination {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+.title-style {
+    padding: 20px;
+    color: rgb(206, 206, 206);
+    font-family: 'Overpass', sans-serif;
+    font-weight: 800;
+}
+
+.pagination-style {
+    background-color: #201c1c;
+    height: 50px;
+}
+
+.page-link {
+    background-color: #201c1c !important;
+}
+
+.card {
+    background-color: #201c1c !important;
 }
