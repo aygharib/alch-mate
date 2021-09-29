@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docker
+1. Clone this repo
+2. Create image: `sudo docker build . -t develorain/alch-mate-container`
+3. Create and run container from image: `sudo docker run -p 1337:3000 -it develorain/alch-mate-container`
+4. Can access web server at http://localhost:1337 on host
+
 ## Available Scripts
 
 In the project directory, you can run:
