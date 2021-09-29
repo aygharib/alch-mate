@@ -12,7 +12,7 @@ const ItemTable = () => {
     // Pagination
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 18;
-    const pagesVisted = pageNumber * itemsPerPage;
+    const pagesVisited = pageNumber * itemsPerPage;
     const pageCount = Math.ceil(mergedItems.length / itemsPerPage);
 
     // Takes in a nested object, returns an array of objects
@@ -92,8 +92,8 @@ const ItemTable = () => {
 
     // Update displayed items when mergedItems changes, or when the pageNumber changes
     useEffect(() => {
-        setDisplayedItems(mergedItems.slice(pagesVisted, pagesVisted + itemsPerPage));
-    }, [mergedItems, pageNumber]);
+        setDisplayedItems(mergedItems.slice(pagesVisited, pagesVisited + itemsPerPage));
+    }, [mergedItems, pageNumber, pagesVisited]);
 
     const changePage = ({selected}) => {
         setPageNumber(selected);
